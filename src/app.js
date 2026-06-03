@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const morgan = require("morgan");
+const loggerMiddleware = require("./middlewares/loggerMiddleware");
 
 const itemRoutes = require("./routes/itemRoutes");
 const locationRoutes = require("./routes/locationRoutes");
@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(loggerMiddleware);
 
 app.get("/", (req, res) => {
   res.json({

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ItemCacheSchema = new mongoose.Schema({
+const LocationCacheSchema = new mongoose.Schema({
   cacheKey: {
     type: String,
     required: true,
@@ -20,6 +20,6 @@ const ItemCacheSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model(
-  "ItemCache",
-  ItemCacheSchema
+  "LocationCache",
+  LocationCacheSchema
 );
