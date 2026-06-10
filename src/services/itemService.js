@@ -7,7 +7,7 @@ function buildCacheKey(queryParams = {}) {
   return `items:${JSON.stringify(queryParams)}`;
 }
 
-async function getItems(queryParams = {}) {
+async function getItems(queryParams = {}, authHeader) {
   const cacheKey = buildCacheKey(queryParams);
 
   const cached = await ItemCache.findOne({ cacheKey });
@@ -18,6 +18,9 @@ async function getItems(queryParams = {}) {
 
   const response = await axios.get(`${SPRING_API_URL}/items`, {
     params: queryParams,
+    headers: {
+      Authorization: authHeader,
+    },
   });
 
   await ItemCache.create({
