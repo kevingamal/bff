@@ -7,7 +7,7 @@ function buildCacheKey(queryParams = {}) {
   return `locations:${JSON.stringify(queryParams)}`;
 }
 
-async function getLocations(queryParams = {}) {
+async function getLocations(queryParams = {}, authHeader) {
   const cacheKey = buildCacheKey(queryParams);
 
   const cached = await LocationCache.findOne({ cacheKey });
@@ -18,6 +18,9 @@ async function getLocations(queryParams = {}) {
 
   const response = await axios.get(`${SPRING_API_URL}/locations`, {
     params: queryParams,
+    headers: {
+      Authorization: authHeader,
+    },
   });
 
   await LocationCache.create({
